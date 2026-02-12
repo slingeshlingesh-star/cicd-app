@@ -4,21 +4,20 @@ phases:
   pre_build:
     commands:
        - echo Logging / auth in to Amazon ECR
-       - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 573371913821.dkr.ecr.eu-north-1.amazonaws.com
-
+       -aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 573371913821.dkr.ecr.eu-north-1.amazonaws.com
   build:
     commands:
       - echo Build started
       - echo Building the docker image
-      - docker build -t cicd-pipeline-image .
-      - docker tag cicd-pipeline-image:latest 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline-image:latest
+      - docker build -t cicp-pipeline-image .
+      - docker tag cicp-pipeline-image:latest 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicp-pipeline-image:latest
 
 
   post_build:
     commands:
      - echo build completed
      - echo pushing in to docker ECR...
-     - docker push 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline-image:latest
+     - docker push 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicp-pipeline-image:latest
      - echo Writing image definition file..
      - printf '[{"name":"%s","imageUri":"%s"}]'"cicd-app" "573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline-image" > imagedefinitions.json
 
