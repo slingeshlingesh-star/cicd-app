@@ -9,17 +9,17 @@ phases:
     commands:
       - echo Build started
       - echo Building the docker image
-      - docker build -t cicp-pipeline-image .
-      - docker tag cicp-pipeline-image:latest 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicp-pipeline-image:latest
+      - docker build -t cicd-pipeline3-image . 
+      - docker tag cicd-pipeline3-image:latest 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline3-image:latest
 
 
   post_build:
     commands:
      - echo build completed
      - echo pushing in to docker ECR...
-     - docker push 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicp-pipeline-image:latest
+     - docker push 573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline3-image:latest
      - echo Writing image definition file..
-     - printf '[{"name":"%s","imageUri":"%s"}]'"cicd-app" "573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline-image" > imagedefinitions.json
+     - printf '[{"name":"%s","imageUri":"%s"}]' "cicp-pipe" "573371913821.dkr.ecr.eu-north-1.amazonaws.com/cicd-pipeline3-image" > imagedefinitions.json
 
 
 artifacts:
